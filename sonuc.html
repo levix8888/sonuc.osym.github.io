@@ -1,0 +1,358 @@
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            transition: opacity ease-in 0.2s;
+        }
+
+        body[unresolved] {
+            opacity: 0;
+            display: block;
+            overflow: hidden;
+            position: relative;
+        }
+    </style>
+    <title>ÖSYM Sonuç Açıklama Sistemi</title>
+</head>
+
+<body>
+    <style>
+        html {
+            font-family: Arial, sans-serif;
+            font-size: 9pt;
+            background-color: #d9ecf2;
+            padding: 0;
+            margin: 0;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            color: #252525;
+            line-height: 1.1
+        }
+
+        img {
+            display: inline-block
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: auto;
+            vertical-align: middle;
+            width: 100%;
+            table-layout: fixed
+        }
+
+        th {
+            background-color: #f4f4f2
+        }
+
+        .no-background {
+            background-color: #fff !important
+        }
+
+        td,
+        th {
+            border: 1px solid #5b5b5b;
+            padding: .5mm 2mm;
+            text-align: center;
+            font-weight: 400
+        }
+
+        .align-left td,
+        .align-left th {
+            text-align: left
+        }
+
+        table.table2x td,
+        table.table2x th {
+            padding: 1mm 2mm
+        }
+
+        table.table3x td,
+        table.table3x th {
+            padding: 2mm 2mm
+        }
+
+        body {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+            margin: 1mm auto;
+            width: 180mm;
+            min-height: 260mm;
+            background-color: #fff;
+            padding: 15mm
+        }
+
+        body * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box
+        }
+
+        .row {
+            margin-bottom: 10px;
+            position: relative
+        }
+
+        .row2x {
+            margin-bottom: 20px;
+            position: relative
+        }
+
+        .row3x {
+            margin-bottom: 30px;
+            position: relative
+        }
+
+        .message {
+            font-size: 10pt;
+            color: #000;
+            font-weight: 700
+        }
+
+        .row:last-child {
+            margin-bottom: 0
+        }
+
+        .center {
+            text-align: center !important
+        }
+
+        .avatar-cell {
+            padding: 0;
+            margin: 0;
+        }
+
+        .avatar {
+            display: block;
+            position: relative;
+            margin: 10px
+        }
+
+        .avatar img {
+            display: block;
+            position: relative;
+            height: 100px;
+            width: auto !important
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto
+        }
+
+        .karekod {
+            display: inline-block;
+            position: absolute;
+            right: 0;
+            top: 0
+        }
+
+        .karekod img {
+            display: block;
+            width: 40px
+        }
+
+        .sonuc-adi {
+            font-size: 16pt;
+            margin: 0;
+            padding: 0;
+            text-align: center
+        }
+
+        .auto-table {
+            margin: 0 auto;
+            width: auto
+        }
+
+        .auto-table td,
+        .auto-table th {
+            text-align: left
+        }
+
+        .auto-table.center * {
+            text-align: center
+        }
+
+        .fluid {
+            table-layout: auto
+        }
+
+        .title1 {
+            background-color: #d6e6f2;
+            font-weight: 700
+        }
+
+        .title2 {
+            background-color: #d6e6f2;
+            font-weight: 700
+        }
+
+        .title3 {
+            background-color: #f4f4f2
+        }
+
+        .no-border {
+            border: none !important;
+            background: 0 0 !important
+        }
+
+        @page {
+            size: A4;
+            margin: 15mm 15mm 15mm 20mm
+        }
+
+        @media print {
+
+            body,
+            html {
+                background-color: #fff !important
+            }
+
+            body {
+                margin: 0 auto !important;
+                padding: 0 !important
+            }
+
+            .no-print {
+                display: none
+            }
+        }
+    </style>
+    <div class="row2x center"><img class="logo" width="90"
+            src="data:image/png;base64, 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"><span
+            class="karekod"> <img style="position:absolute; top:10px; right:0"
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAlCAYAAADFniADAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAITSURBVFhHtY5BctxADAP9/087gqJetbCcUS7pKpgkgNH65+B3JcPtOfWCfc/2N/r+aMD3RL7ZoXffZucfuj+MuJns8C+93t3r2fmhdQi9W4a7M277nu0fWofw5lsNXuft1/39oWDfD8Be75MH9ieu/vNDFqX/NZc6Gy+k6Gn4UO9h1X/jbPAxHngPq9u+5+SBd1Pv7gMUftT35Df26OBtM0zzKNTuGXb5rmc1H6cfwOQ7D84Ar0UG7V29Z3m3cwd7+N5D54HdXqjO/RCBb+f2PIPzZup19/RYPoZ2JnvovOl+WL2f9nDs84PVRNC36R50nzvz0v1Dk1z23l6zyu0H7od3zTEM9qfMuNPTuBe4pW348T0n+k1obzWDvUOvhdcM4Zu+g7vInNdUag86Y+5EB3p3L9zbgYPgBwif2f6U2Z8g03w+8m0PvIfuZE5es+2ffw/GUNPCa97y4Hzaw7nZgEepH123/fasKZ+8j3/+PegA2mPfde2zT17ofjgvB56rnckeuK0VzqY3x3wWPJv4b51Arzt+u+s8HBdWe5iylWdNnn24twXTI9hl4fFDi6597d//OQJ2+90JePbbm+ag54cBX8XzNs7Ie0L3wLc690cQdzN1vJv2PSeRXfO7zM3srLHf3d2bSVd2P65gnEB3Euxuz8G7HxkXkW+Ycs/gPExZebfZMqt88oL30DnY/7v//P4BTSwRpuULsXkAAAAASUVORK5CYII="
+                alt="qrCode"> </span></div>
+    <div class="row2x">
+        <h1 class="sonuc-adi">2025 Millî Savunma Üniversitesi Askerî Öğrenci Aday Belirleme Sınavı (MSÜ) Sonuçları</h1>
+    </div>
+    <div class="row2x">
+        <table class="auto-table">
+            <tbody>
+                <tr class="align-left">
+                    <td colspan="2" rowspan="4" class="avatar-cell">
+                        <div class="avatar"> <img
+                                src="data:image/png;base64,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"
+                                alt="adayFoto" width="120px"> </div>
+                    </td>
+                    <td colspan="4" class="title3"> T.C. Kimlik Numarası </td>
+                    <td colspan="6">12095041226</td>
+                </tr>
+                <tr class="align-left">
+                    <td colspan="4" class="title3"> Adı ve Soyadı </td>
+                    <td colspan="6">NURİ HAN KARUL</td>
+                </tr>
+                <tr class="align-left">
+                    <td colspan="4" class="title3"> Sınav Tarihi </td>
+                    <td colspan="6"> 23 Şubat 2025 </td>
+                </tr>
+                <tr class="align-left">
+                    <td colspan="4" class="title3"> Sonuç Açıklama Tarihi </td>
+                    <td colspan="6"> 18 Mart 2025 </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row2x">
+        <table class="table2x">
+            <tbody>
+                <tr>
+                    <th colspan="8" class="title1">TESTLERDEKİ DOĞRU VE YANLIŞ SAYILARI</th>
+                </tr>
+                <tr>
+                    <th colspan="2" class="title2">Türkçe</th>
+                    <th colspan="2" class="title2">Sosyal Bilimler</th>
+                    <th colspan="2" class="title2">Temel Matematik</th>
+                    <th colspan="2" class="title2">Fen Bilimleri</th>
+                </tr>
+                <tr>
+                    <th>Doğru</th>
+                    <th>Yanlış</th>
+                    <th>Doğru</th>
+                    <th>Yanlış</th>
+                    <th>Doğru</th>
+                    <th>Yanlış</th>
+                    <th>Doğru</th>
+                    <th>Yanlış</th>
+                </tr>
+                <tr>
+                    <td>21</td>
+                    <td>8</td>
+                    <td>11</td>
+                    <td>3</td>
+                    <td>28</td>
+                    <td>9</td>
+                    <td>7</td>
+                    <td>2</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="row2x">
+        <table class="table2x">
+            <tbody>
+                <tr>
+                    <th colspan="3" class="title1">SINAV PUANLARI VE BAŞARI SIRALARI</th>
+                </tr>
+                <tr>
+                    <th>Puan Türü</th>
+                    <th>Puan</th>
+                    <th>Başarı Sırası</th>
+                </tr>
+                <tr>
+                    <th>SAYISAL</th>
+                    <td>316,99924</td>
+                    <td>307.243</td>
+                </tr>
+                <tr>
+                    <th>SÖZEL</th>
+                    <td>327,47663</td>
+                    <td>325.514</td>
+                </tr>
+                <tr>
+                    <th>EŞİT AĞIRLIK</th>
+                    <td>327,86668</td>
+                    <td>319.690</td>
+                </tr>
+                <tr>
+                    <th>GENEL</th>
+                    <td>323,67184</td>
+                    <td>302.981</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    
+    <center><span style="font-size: small; font-style: italic">(Bu belgenin aslına ilişkin sorgulama
+            https://sonuc.osym.gov.tr/BelgeKontrol.aspx Internet adresinden yapılabilir.)</span>
+        <br>Sonuç Belgesi Kontrol Kodu: B6U7TES7
+    </center><veepn-lock-screen>
+        <style>
+            @font-face {
+                font-family: FigtreeVF;
+                src: url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"), url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");
+                font-weight: 100 1000;
+                font-display: swap
+            }
+        </style>
+    </veepn-lock-screen><veepn-guard-alert>
+        <style>
+            @font-face {
+                font-family: FigtreeVF;
+                src: url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"), url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");
+                font-weight: 100 1000;
+                font-display: swap
+            }
+        </style>
+    </veepn-guard-alert>
+    <div id="c4g-content-root" class="c4g-widget"></div>
+</body>
+
+</html>
